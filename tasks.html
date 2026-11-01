@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasks - MyStudyPlanner</title>
+<meta name="description" content="Log in to add, view, edit and delete study tasks in MyStudyPlanner.">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">MyStudyPlanner</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" data-nav="index">Home</a>
+      <a href="tasks.html" data-nav="tasks">Tasks</a>
+      <a href="blog.html" data-nav="blog">Project Blog</a>
+      <a href="ethics.html" data-nav="ethics">Ethics &amp; Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <h1>Task Manager</h1>
+
+  <!-- ============ LOGIN VIEW ============ -->
+  <section id="login-view" aria-labelledby="login-heading">
+    <div class="card login-card">
+      <h2 id="login-heading">Log in</h2>
+      <p>You need to log in before you can see the task workspace.</p>
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="login-username">Username</label>
+          <input id="login-username" name="username" type="text" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <p id="login-error" class="error-message" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+      <p class="hint">Demo account for this assignment: username <code>student</code>, password <code>info1012</code>.</p>
+    </div>
+  </section>
+
+  <!-- ============ WORKSPACE VIEW ============ -->
+  <section id="workspace-view" aria-labelledby="workspace-heading" hidden>
+    <div class="workspace-bar">
+      <h2 id="workspace-heading">My study tasks</h2>
+      <div>
+        <span id="workspace-user" class="hint"></span>&nbsp;
+        <button type="button" id="logout-btn" class="btn">Log out</button>
+      </div>
+    </div>
+
+    <div class="workspace">
+      <form id="task-form" class="card" novalidate>
+        <h3 id="task-form-heading">Add a new task</h3>
+        <input type="hidden" id="task-id">
+        <div class="row">
+          <div class="field">
+            <label for="task-title">Title *</label>
+            <input id="task-title" type="text" required>
+            <p class="field-error" id="error-title" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="task-due">Due date *</label>
+            <input id="task-due" type="date" required>
+            <p class="field-error" id="error-due" role="alert" hidden></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="task-code">Course code *</label>
+            <input id="task-code" type="text" placeholder="e.g. INFO1012" required>
+            <p class="field-error" id="error-code" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="task-course">Course name *</label>
+            <input id="task-course" type="text" placeholder="e.g. Information Systems" required>
+            <p class="field-error" id="error-course" role="alert" hidden></p>
+          </div>
+        </div>
+        <div class="field">
+          <label for="task-desc">Description *</label>
+          <textarea id="task-desc" rows="3" required></textarea>
+          <p class="field-error" id="error-desc" role="alert" hidden></p>
+        </div>
+        <div class="field">
+          <label for="task-notes">Additional notes</label>
+          <textarea id="task-notes" rows="2"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" id="task-submit" class="btn btn-primary">Add task</button>
+          <button type="button" id="task-cancel" class="btn" hidden>Cancel editing</button>
+        </div>
+      </form>
+
+      <div class="card">
+        <h3>Current tasks</h3>
+        <p id="task-empty" class="hint">No tasks yet. Add your first task with the form.</p>
+        <div class="table-wrap">
+          <table id="task-table" hidden>
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Course</th>
+                <th scope="col">Due date</th>
+                <th scope="col">Description</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="task-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Custom delete confirmation modal -->
+<div id="confirm-modal" class="modal-backdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+    <h2 id="confirm-title">Delete this task?</h2>
+    <p id="confirm-text">This action cannot be undone.</p>
+    <div class="form-actions">
+      <button type="button" id="confirm-yes" class="btn btn-danger">Delete</button>
+      <button type="button" id="confirm-no" class="btn">Keep task</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>MyStudyPlanner &mdash; Task Manager &middot; Current date and time: <span data-current-datetime>loading&hellip;</span></p>
+</footer>
+
+<script src="js/shared.js"></script>
+<script src="js/tasks.js"></script>
+</body>
+</html>

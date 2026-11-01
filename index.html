@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyStudyPlanner - Home</title>
+<meta name="description" content="MyStudyPlanner is a small website for keeping track of course tasks and deadlines.">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">MyStudyPlanner</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" data-nav="index">Home</a>
+      <a href="tasks.html" data-nav="tasks">Tasks</a>
+      <a href="blog.html" data-nav="blog">Project Blog</a>
+      <a href="ethics.html" data-nav="ethics">Ethics &amp; Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-text">
+      <h1>MyStudyPlanner</h1>
+      <p class="tagline">A simple website for keeping track of course tasks and deadlines.</p>
+      <p>I built this site for INFO1012 Assignment 3. It lets me write down each task with its course and due date, so I can see the week's work in one table instead of digging through messages and notes.</p>
+      <p><a class="btn btn-primary" href="tasks.html">Go to the task manager</a></p>
+    </div>
+
+    <figure class="carousel" aria-label="Study-related image carousel">
+      <img id="carousel-image" src="images/study-planner.png" alt="Drawing of a calendar with marked days next to a checklist" width="1200" height="800">
+      <figcaption id="carousel-status" class="carousel-status" role="status" aria-live="polite">Image 1 of 3</figcaption>
+      <div class="carousel-controls">
+        <button type="button" id="carousel-prev" aria-label="Show previous image">&larr; Prev</button>
+        <button type="button" id="carousel-toggle" aria-pressed="true">Pause</button>
+        <button type="button" id="carousel-next" aria-label="Show next image">Next &rarr;</button>
+      </div>
+    </figure>
+  </section>
+
+  <section class="section" id="about-app">
+    <h2>About the App</h2>
+    <p>MyStudyPlanner is a small task manager made for students. Each task has a title, course code, course name, due date, description and optional notes. That is everything I need to remember about an assignment, kept in one row of a table.</p>
+    <p>The app helps me manage study tasks in three ways:</p>
+    <ul>
+      <li><strong>Add</strong> - I can add a task as soon as it is announced. The form checks that required fields are filled in and that the due date makes sense.</li>
+      <li><strong>Review</strong> - all current tasks are shown in a table sorted by due date, so the most urgent one is at the top.</li>
+      <li><strong>Change</strong> - I can edit a task when the requirements change, and delete finished tasks. Deleting always asks for confirmation first.</li>
+    </ul>
+    <p>All tasks are saved in the browser's localStorage. There is no server and no account system, so the data never leaves my computer.</p>
+  </section>
+
+  <section class="section" id="about-me">
+    <h2>About Me</h2>
+    <p>I am a student taking INFO1012. I enjoy learning how information systems are planned and built, and I am interested in how data and software are used in real organisations.</p>
+    <p>Before this project I kept my tasks in a paper notebook and often forgot about deadlines until the same week. While building this app I started listing my tasks every Sunday and checking the due dates, which already works better than the notebook did.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>MyStudyPlanner - INFO1012 Assignment 3 &middot; Current date and time: <span data-current-datetime>loading&hellip;</span></p>
+</footer>
+
+<script src="js/shared.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

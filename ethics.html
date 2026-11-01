@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethics &amp; Privacy - MyStudyPlanner</title>
+<meta name="description" content="How MyStudyPlanner handles user data in an ethical and privacy-friendly way.">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">MyStudyPlanner</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" data-nav="index">Home</a>
+      <a href="tasks.html" data-nav="tasks">Tasks</a>
+      <a href="blog.html" data-nav="blog">Project Blog</a>
+      <a href="ethics.html" data-nav="ethics">Ethics &amp; Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <h1>Ethics &amp; Privacy</h1>
+  <p>Even a small study app stores personal information, such as which courses I take and which deadlines I am worried about. This page explains how the actual code of MyStudyPlanner tries to handle that data in an ethical and privacy-friendly way.</p>
+
+  <h2>Features that support ethical data use</h2>
+  <h3>Only collecting what is needed</h3>
+  <p>The task form only asks for six things: title, course code, course name, due date, description and notes. It does not ask for a real name, email, student ID or location. If the app never collects a piece of data, it cannot misuse it or lose it.</p>
+
+  <h3>Clear validation instead of silent behaviour</h3>
+  <p>Every input is checked before it is saved. Required fields cannot be empty, the course code must look like a real course code (for example <code>INFO1012</code>), and a due date that is not a real date or is already in the past is rejected with a message like <em>"Due date cannot be in the past."</em> The app never pretends to save something it actually refused.</p>
+
+  <h3>Dangerous actions need confirmation</h3>
+  <p>Deleting a task cannot be undone, so the app always asks first. The confirmation dialog names the exact task, for example <em>"Delete 'Assignment 3' (INFO1012)?"</em>, and the safe option (<strong>Keep task</strong>) is focused by default, so it is harder to delete something by accident.</p>
+
+  <h2>Features that support data privacy</h2>
+  <h3>Data stays in the browser</h3>
+  <p>Tasks are saved in the browser's <code>localStorage</code> under a key for the logged-in user (<code>msp-tasks-student</code>). The site makes no network requests at all - there is no server, no database and no third-party script, so the task list never leaves the user's own device.</p>
+
+  <h3>Login restriction with a short session</h3>
+  <p>The task workspace is hidden until the user logs in. The login state is stored in <code>sessionStorage</code>, which the browser deletes when the tab is closed. On a shared computer, for example in a university lab, closing the tab is enough to keep the next person out of the workspace.</p>
+
+  <h3>No tracking</h3>
+  <p>The site only loads its own files: one stylesheet, three JavaScript files and a few images I drew myself. There are no cookies, no analytics, no advertising scripts and no external fonts, so no third party can see when or how the site is used.</p>
+
+  <h2>Honest limitations</h2>
+  <p>Two limits are worth stating. First, localStorage is not encrypted, so anyone with physical access to the same computer and browser profile could read it - that is one more reason the app avoids collecting sensitive details. Second, the login uses a hard-coded demo account (<code>student</code> / <code>info1012</code>) because this is a course assignment; a real product would check passwords on a server and store them as hashes, not as plain text in the JavaScript file.</p>
+</main>
+
+<footer class="site-footer">
+  <p>MyStudyPlanner - Ethics &amp; Privacy &middot; Current date and time: <span data-current-datetime>loading&hellip;</span></p>
+</footer>
+
+<script src="js/shared.js"></script>
+</body>
+</html>
