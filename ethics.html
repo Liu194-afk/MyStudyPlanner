@@ -23,30 +23,30 @@
 
 <main class="section">
   <h1>Ethics &amp; Privacy</h1>
-  <p>Even a small study app stores personal information, such as which courses I take and which deadlines I am worried about. This page explains how the actual code of MyStudyPlanner tries to handle that data in an ethical and privacy-friendly way.</p>
+  <p>Even a tiny study app stores personal stuff - which courses I take, what's due, and how I describe my own work. This page explains what I actually did in the code to handle that data properly, rather than just saying "privacy matters".</p>
 
-  <h2>Features that support ethical data use</h2>
-  <h3>Only collecting what is needed</h3>
-  <p>The task form only asks for six things: title, course code, course name, due date, description and notes. It does not ask for a real name, email, student ID or location. If the app never collects a piece of data, it cannot misuse it or lose it.</p>
+  <h2>Things that support ethical data use</h2>
+  <h3>I only collect what's actually needed</h3>
+  <p>The task form asks for six things: title, course code, course name, due date, description and notes. It doesn't ask for a real name, email, student ID or location. Data I never collect can't be misused or leaked, which is the easiest win.</p>
 
-  <h3>Clear validation instead of silent behaviour</h3>
-  <p>Every input is checked before it is saved. Required fields cannot be empty, the course code must look like a real course code (for example <code>INFO1012</code>), and a due date that is not a real date or is already in the past is rejected with a message like <em>"Due date cannot be in the past."</em> The app never pretends to save something it actually refused.</p>
+  <h3>Validation that's honest, not silent</h3>
+  <p>Everything is checked before it gets saved. Required fields can't be empty, the course code has to look like a real one (e.g. <code>INFO1012</code>), and a due date that's not a real date or is already in the past gets rejected with a message like <em>"Due date cannot be in the past."</em> The app never pretends it saved something it actually refused.</p>
 
-  <h3>Dangerous actions need confirmation</h3>
-  <p>Deleting a task cannot be undone, so the app always asks first. The confirmation dialog names the exact task, for example <em>"Delete 'Assignment 3' (INFO1012)?"</em>, and the safe option (<strong>Keep task</strong>) is focused by default, so it is harder to delete something by accident.</p>
+  <h3>Deleting always asks first</h3>
+  <p>A deleted task is gone for good, so the app always confirms first. The dialog names the exact task, like <em>"Delete 'Assignment 3' (INFO1012)?"</em>, and the safe button (<strong>Keep task</strong>) is the one focused by default, so it's hard to delete something by tapping too fast.</p>
 
-  <h2>Features that support data privacy</h2>
-  <h3>Data stays in the browser</h3>
-  <p>Tasks are saved in the browser's <code>localStorage</code> under a key for the logged-in user (<code>msp-tasks-student</code>). The site makes no network requests at all - there is no server, no database and no third-party script, so the task list never leaves the user's own device.</p>
+  <h2>Things that support data privacy</h2>
+  <h3>Data never leaves the browser</h3>
+  <p>Tasks are saved in the browser's <code>localStorage</code> under a key for the logged-in user (<code>msp-tasks-student</code>). The site makes no network requests at all - no server, no database, no third-party scripts - so the task list physically stays on the user's own device.</p>
 
-  <h3>Login restriction with a short session</h3>
-  <p>The task workspace is hidden until the user logs in. The login state is stored in <code>sessionStorage</code>, which the browser deletes when the tab is closed. On a shared computer, for example in a university lab, closing the tab is enough to keep the next person out of the workspace.</p>
+  <h3>Login with a short-lived session</h3>
+  <p>You can't see the task workspace without logging in. The login state lives in <code>sessionStorage</code>, which the browser wipes when the tab closes. On a shared computer (like the ones in the uni labs), closing the tab is enough to keep the next person out.</p>
 
-  <h3>No tracking</h3>
-  <p>The site only loads its own files: one stylesheet, three JavaScript files and a few images I drew myself. There are no cookies, no analytics, no advertising scripts and no external fonts, so no third party can see when or how the site is used.</p>
+  <h3>No tracking at all</h3>
+  <p>The site only loads its own files: one stylesheet, three JavaScript files and some images I drew myself. No cookies, no analytics, no ad scripts, no external fonts - so no third party can watch when or how the site gets used.</p>
 
-  <h2>Honest limitations</h2>
-  <p>Two limits are worth stating. First, localStorage is not encrypted, so anyone with physical access to the same computer and browser profile could read it - that is one more reason the app avoids collecting sensitive details. Second, the login uses a hard-coded demo account (<code>student</code> / <code>info1012</code>) because this is a course assignment; a real product would check passwords on a server and store them as hashes, not as plain text in the JavaScript file.</p>
+  <h2>Limitations, honestly</h2>
+  <p>Two things are worth admitting. First, localStorage isn't encrypted, so someone with physical access to the same computer and browser profile could read it - one more reason not to collect sensitive details in the first place. Second, the login is a hard-coded demo account (<code>student</code> / <code>info1012</code>) because this is a course assignment; a real product would check passwords on a server and store them as hashes instead of plain text in a JavaScript file.</p>
 </main>
 
 <footer class="site-footer">

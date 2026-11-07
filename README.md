@@ -2,7 +2,7 @@
 
 **Repository URL:** https://github.com/Liu194-afk/MyStudyPlanner
 
-A small website for keeping track of course tasks and deadlines. Built for INFO1012 Assignment 3 with plain HTML, CSS and JavaScript - no frameworks and no build step.
+A small website for keeping track of course tasks and deadlines. I built it for INFO1012 Assignment 3 with plain HTML, CSS and JavaScript - no frameworks, no build step.
 
 ## Project description
 
