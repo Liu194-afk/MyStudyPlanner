@@ -61,8 +61,6 @@ main{max-width:1000px;margin:0 auto;padding:1.5rem 1rem 3rem}
   padding:.45rem .9rem;cursor:pointer;min-height:40px;
 }
 .btn:hover,button:hover{background:#e8e8e8}
-.btn-primary{background:#0066cc;border-color:#005bb5;color:#ffffff}
-.btn-primary:hover{background:#005bb5}
 .btn-danger{background:#ffffff;border-color:#b30000;color:#b30000}
 .btn-danger:hover{background:#fbeaea}
 .btn-small{padding:.3rem .55rem;font-size:.85rem;min-height:34px;margin:0 .25rem .25rem 0}
