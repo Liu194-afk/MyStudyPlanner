@@ -1,3 +1,4 @@
+// home.js - image carousel for the home page (prev/next + auto cycle)
 document.addEventListener('DOMContentLoaded',()=>{
   const img=document.querySelector('#carousel-image');
   const status=document.querySelector('#carousel-status');
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   ];
   let i=0,timer=null;
   function show(n){
+    // note: plain n % length breaks for n=-1 (see blog, bug 3), so add length first
     i=(n+slides.length)%slides.length;
     img.src=slides[i].src; img.alt=slides[i].alt;
     status.textContent=`Image ${i+1} of ${slides.length}: ${slides[i].alt}`;

@@ -1,3 +1,4 @@
+// shared.js - used by every page: footer clock + highlighting the current nav link
 (function(){
   function pad(n){return String(n).padStart(2,'0')}
   function renderDateTime(){

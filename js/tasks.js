@@ -1,8 +1,9 @@
-/* MyStudyPlanner — tasks.js
- * Login gate + task CRUD (localStorage) + validation + delete confirmation.
- * Data never leaves the browser: tasks are stored under a per-user
- * localStorage key, and the login state lives in sessionStorage so the
- * workspace closes when the tab closes.
+/* MyStudyPlanner - tasks.js
+ * Handles the login gate, task add/edit/delete, validation and the
+ * delete confirmation dialog. Everything stays in the browser: tasks go
+ * in localStorage (per user), the login flag goes in sessionStorage so
+ * the workspace locks itself again when the tab closes.
+ * Demo account: student / info1012 (hard-coded on purpose, see ethics page)
  */
 (function () {
   'use strict';
@@ -144,6 +145,8 @@
         showError('due', 'That is not a valid calendar date.');
         ok = false;
       } else {
+        // blog bug 1: a past date parses fine but makes no sense, so compare
+        // with today (both at 00:00, so a task due later today still passes)
         var today = new Date();
         today.setHours(0, 0, 0, 0);
         if (parsed < today) {
