@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Blog - MyStudyPlanner</title>
+<meta name="description" content="Two-week sprint plan, Agile practices and debugging log for the MyStudyPlanner project.">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">MyStudyPlanner</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" data-nav="index">Home</a>
+      <a href="tasks.html" data-nav="tasks">Tasks</a>
+      <a href="blog.html" data-nav="blog">Project Blog</a>
+      <a href="ethics.html" data-nav="ethics">Ethics &amp; Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <h1>Project Blog</h1>
+  <p>How I actually built this site: the two-week plan, the Agile stuff I used, and three bugs that annoyed me during testing. For each bug I wrote down when it happened, a screenshot of it going wrong, the broken code, the fixed code, and a screenshot of it working again.</p>
+
+  <h2>Two-week sprint plan</h2>
+  <div class="table-wrap">
+    <table class="sprint">
+      <thead>
+        <tr><th scope="col">Week</th><th scope="col">SDLC phase</th><th scope="col">What I planned to do</th><th scope="col">Result</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Week 1<br>1 - 7 Nov</td>
+          <td>Planning, Design &amp; Implementation (first part)</td>
+          <td>Decide what the app is for and who uses it; read the assignment brief and turn it into a feature list (login, add/edit/delete tasks, validation, image carousel, blog, ethics page); sketch the four pages and the fields a task needs; draw wireframes on paper; pick a simple layout and colours; build <code>index.html</code>, the shared stylesheet and the image carousel; draw the three images and the favicon.</td>
+          <td>Requirement checklist, a site map of the four pages, the task fields (title, course code, course name, due date, description, notes), and a home page finished with a working carousel plus a stylesheet the other pages reuse.</td>
+        </tr>
+        <tr>
+          <td>Week 2<br>8 - 14 Nov</td>
+          <td>Implementation (second part), Testing and Maintenance</td>
+          <td>Build <code>tasks.html</code> with login, task create/read/update/delete and validation; write the ethics page; test everything on desktop and a phone-sized window; fix the bugs found; write README/CREDITS/LICENSE and pack the final ZIP.</td>
+          <td>All four pages working with no console errors; three bugs found and fixed (see below); project documented and zipped.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Agile practices I used, and why</h2>
+  <ul>
+    <li><strong>One-week sprints.</strong> Every week ended with something that worked (week 1: home page; week 2: the whole app). If I hadn't split it up like this I honestly would have done everything the night before the deadline.</li>
+    <li><strong>MoSCoW prioritisation.</strong> I sorted the requirements into Must have (login, CRUD, validation, carousel, blog evidence), Should have (ethics page, mobile layout) and Could have (a dark mode). Week 2 got busy, so the dark mode got dropped instead of the testing.</li>
+    <li><strong>Small, frequent commits.</strong> I committed after each small feature with a short message. When the delete-dialog bug showed up, this made it easy to see which change had caused it.</li>
+    <li><strong>Testing after each increment.</strong> I tried each feature in the browser right after building it instead of leaving all testing to the end. All three bugs below were found this way, while I still remembered the code.</li>
+    <li><strong>A simple to-do list</strong> (To do / Doing / Done) with only one thing in "Doing" at a time, so I actually finished stuff before starting the next thing.</li>
+  </ul>
+
+  <h2>Debugging log</h2>
+  <p>All three bugs below turned up on 2026-11-11 during the week 2 testing. I re-took the evidence screenshots in the final regression run that same evening (around 20:58), so the footers in the images show that time instead of the original ones.</p>
+
+  <article class="blog-bug">
+    <h3>Bug 1 - the form accepted a due date in the past (validation)</h3>
+    <p><strong>Occurred:</strong> 2026-11-11, 18:52. While testing the validation I entered a task due 2026-11-01 (already past) and it was saved without any error.</p>
+    <figure>
+      <img src="docs/evidence/bug-1-before.png" alt="Before the fix: a task due 2026-11-01 appears in the task table with no error message">
+      <figcaption>Before: a task with a past due date is accepted and added to the table.</figcaption>
+    </figure>
+    <p>The validation only checked that the date could be parsed, and never compared it with today:</p>
+    <pre><code>var parsed = new Date(data.due + 'T00:00:00');
+if (isNaN(parsed.getTime())) {
+  showError('due', 'That is not a valid calendar date.');
+  ok = false;
+}
+// nothing compared the date with today</code></pre>
+    <p><strong>Resolved:</strong> 2026-11-11, 18:55. The same input is now rejected and the task is not saved.</p>
+    <figure>
+      <img src="docs/evidence/bug-1-after.png" alt="After the fix: the same past date is rejected with the error Due date cannot be in the past">
+      <figcaption>After: the past date is rejected with "Due date cannot be in the past."</figcaption>
+    </figure>
+    <pre><code>var parsed = new Date(data.due + 'T00:00:00');
+if (isNaN(parsed.getTime())) {
+  showError('due', 'That is not a valid calendar date.');
+  ok = false;
+} else {
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+  if (parsed &lt; today) {
+    showError('due', 'Due date cannot be in the past.');
+    ok = false;
+  }
+}</code></pre>
+    <p><strong>Debugging notes.</strong> This one was my own misreading of the requirement: I thought "reject illegal dates" just meant "reject dates that can't be parsed", and forgot that a past date parses perfectly fine but is useless in a planner. The fix compares the entered date with today at midnight; both get set to 00:00 first so a task due later today still passes. References used: the MDN page for <code>Date</code> and the week 10 lecture slides on input validation.</p>
+  </article>
+
+  <article class="blog-bug">
+    <h3>Bug 2 - the delete confirmation dialog was visible on page load (interface behaviour)</h3>
+    <p><strong>Occurred:</strong> 2026-11-11, 18:44. On the first full browser test of <code>tasks.html</code>, the "Delete this task?" dialog was already covering the login form, and no button on the page responded to clicks.</p>
+    <figure>
+      <img src="docs/evidence/bug-2-before.png" alt="Before the fix: the Delete this task dialog covers the login form on page load">
+      <figcaption>Before: the delete dialog covers the login form before anything was clicked.</figcaption>
+    </figure>
+    <p>The dialog has the <code>hidden</code> attribute, but my own CSS forced it to be displayed anyway:</p>
+    <pre><code>.modal-backdrop{
+  position:fixed; inset:0;
+  display:grid;          /* this beats the browser's hidden{display:none} rule */
+  place-items:center;
+  z-index:50;
+}</code></pre>
+    <p><strong>Resolved:</strong> 2026-11-11, 19:00. The dialog now stays hidden until a Delete button is clicked.</p>
+    <figure>
+      <img src="docs/evidence/bug-2-after.png" alt="After the fix: the delete dialog appears only after clicking Delete and names the task">
+      <figcaption>After: the dialog appears only when it should, and names the exact task.</figcaption>
+    </figure>
+    <pre><code>.modal-backdrop{
+  position:fixed; inset:0;
+  display:grid;
+  place-items:center;
+  z-index:50;
+}
+.modal-backdrop[hidden]{ display:none; }  /* make the hidden attribute work again */</code></pre>
+    <p><strong>Debugging notes.</strong> Since every click was dead, I guessed something invisible was sitting on top of the page, and the browser inspector showed it was the modal backdrop that was supposed to be hidden. The cause is a CSS rule I didn't know about: the <code>hidden</code> attribute only means <code>display:none</code> in the browser's default stylesheet, and my own <code>display:grid</code> quietly overrides that. The fix adds an explicit rule for <code>[hidden]</code>. References used: the MDN page on the <code>hidden</code> attribute and a Stack Overflow question about <code>hidden</code> versus <code>display</code>.</p>
+  </article>
+
+  <article class="blog-bug">
+    <h3>Bug 3 - "Prev" on the first carousel image did nothing (interface behaviour)</h3>
+    <p><strong>Occurred:</strong> 2026-11-11, 18:49. On the home page, pressing Prev while image 1 was showing left the carousel on image 1 and stopped the auto-cycling; the console showed a <code>TypeError</code>.</p>
+    <figure>
+      <img src="docs/evidence/bug-3-before.png" alt="Before the fix: after pressing Prev on the first image the carousel still shows Image 1 of 3">
+      <figcaption>Before: Prev on image 1 changes nothing - it still says "Image 1 of 3".</figcaption>
+    </figure>
+    <pre><code>function show(n){
+  i = n % slides.length;   // in JavaScript, -1 % 3 is -1, not 2
+  img.src = slides[i].src; // slides[-1] is undefined -&gt; TypeError
+  img.alt = slides[i].alt;
+  status.textContent = 'Image ' + (i+1) + ' of ' + slides.length;
+}</code></pre>
+    <p><strong>Resolved:</strong> 2026-11-11, 18:50. Prev on the first image now wraps around to the last image.</p>
+    <figure>
+      <img src="docs/evidence/bug-3-after.png" alt="After the fix: pressing Prev on the first image wraps to Image 3 of 3">
+      <figcaption>After: Prev from image 1 wraps to "Image 3 of 3".</figcaption>
+    </figure>
+    <pre><code>i = (n + slides.length) % slides.length;  // always between 0 and length-1, even for n = -1</code></pre>
+    <p><strong>Debugging notes.</strong> The console error <code>TypeError: Cannot read properties of undefined (reading 'src')</code> pointed straight at the line. The cause is that JavaScript's % operator keeps the sign of the left-hand number, so <code>-1 % 3</code> is <code>-1</code>, which I did not expect coming from other languages. Adding the array length before the % keeps the index in range. Reference used: the MDN page on the remainder operator.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p>MyStudyPlanner - Project Blog &middot; Current date and time: <span data-current-datetime>loading&hellip;</span></p>
+</footer>
+
+<script src="js/shared.js"></script>
+</body>
+</html>

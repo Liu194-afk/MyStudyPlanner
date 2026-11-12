@@ -16,7 +16,7 @@ MyStudyPlanner keeps every study task in one table: title, course code, course n
 |---|---|
 | `index.html` | Home: app intro, About the App / About Me, image carousel with Prev/Next and auto-cycle buttons |
 | `tasks.html` | Task manager behind a login: create, view, update, delete (with confirmation dialog), input validation |
-| `blog.html` | Three-week sprint plan, Agile practices, and a debugging log with before/after evidence |
+| `blog.html` | Two-week sprint plan, Agile practices, and a debugging log with before/after evidence |
 | `ethics.html` | Ethics & privacy reflection, matched to how the site is actually built |
 
 ## Installation and running
