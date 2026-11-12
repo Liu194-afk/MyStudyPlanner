@@ -2,6 +2,10 @@
 
 **Repository URL:** https://github.com/Liu194-afk/MyStudyPlanner
 
+**Author:** 刘景灏 (Jinghao Liu)  
+**Student ID:** 2518040129  
+**Program:** Computer Science and Technology (计算机科学与技术)
+
 A small website for keeping track of course tasks and deadlines. I built it for INFO1012 Assignment 3 with plain HTML, CSS and JavaScript - no frameworks, no build step.
 
 ## Project description
